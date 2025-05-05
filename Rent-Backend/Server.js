@@ -7,8 +7,6 @@ const hostRouter = require("./routes/hostRouter");
 const userRouter = require("./routes/userRouter");
 const rootDir = require("./utils/path");
 const authRouter = require("./routes/authRouter");
-const DB_PATH =
-  "mongodb+srv://patsandy2022:sandy4438@cluster0.tkdp7.mongodb.net/RentedCars?retryWrites=true&w=majority&appName=Cluster0";
 
 const app = express();
 
@@ -60,7 +58,7 @@ app.use("/auth", authRouter);
 const PORT = 3000;
 
 mongoose
-  .connect(DB_PATH)
+  .connect(process.env.DB_PATH)
   .then(() => {
     console.log("Connected to MongoDB");
     app.listen(PORT, () => {
