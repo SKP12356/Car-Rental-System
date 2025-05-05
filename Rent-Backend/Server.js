@@ -7,6 +7,7 @@ const hostRouter = require("./routes/hostRouter");
 const userRouter = require("./routes/userRouter");
 const rootDir = require("./utils/path");
 const authRouter = require("./routes/authRouter");
+require("dotenv").config();
 
 const app = express();
 
