@@ -25,7 +25,14 @@ import {
   updateDocumentsService,
   modifyUserProfile,
   updateUserPassword,
-  searchHistoryServices
+  searchHistoryServices,
+  emailOtpService,
+  resendOtp,
+  phoneOtpService,
+  addphoneOtpService,
+  resendPhoneOtp,
+  sendEmailforVerify,
+  rewritePassword
 } from "../services/carServices";
 import { useParams } from "react-router-dom";
 import { useEffect } from "react";
@@ -69,6 +76,13 @@ export const CarContext = createContext({
   updateDocumnets: () => {},
   updateProfile: () => {},
   updatePassword: () => {},
+  provideOtp: () => {},
+  otpResend: () => {},
+  providePhoneOtp: () => {},
+  addPhoneOtp: () => {},
+  phoneotpResend: () => {},
+  sendmail: () => {},
+  sendPassword: () => {}
 });
 
 function CarContextProvider({ children }) {
@@ -97,10 +111,10 @@ function CarContextProvider({ children }) {
   // console.log(bookingCars)
 
   // const {id} = useParams()
-  console.log(cars);
-  console.log(bookCars);
-  console.log(myCars);
-  console.log(history);
+  // console.log(cars);
+  // console.log(bookCars);
+  // console.log(myCars);
+  // console.log(history);
   useEffect(() => {
     const savedUser = localStorage.getItem("user");
     const savedToken = localStorage.getItem("token");
@@ -154,7 +168,7 @@ function CarContextProvider({ children }) {
     fetchFavCars();
   }, [user, token]);
 
-  console.log(searchedHistories)
+  // console.log(searchedHistories)
 
   useEffect(() => {
     getBookingCar(token).then((initialCars) => {
@@ -215,7 +229,7 @@ function CarContextProvider({ children }) {
       return data;
     } catch (err) {
       const errMsg = err.response?.data?.message;
-      console.log(errMsg);
+      // console.log(errMsg);
       return errMsg;
     }
   };
@@ -238,7 +252,7 @@ function CarContextProvider({ children }) {
     image,
     description
   ) => {
-    console.log(location);
+    // console.log(location);
     const carItem = await addCarService(
       make,
       model,
@@ -265,6 +279,7 @@ function CarContextProvider({ children }) {
       const hostCars = await getMyCarServices(token);
       setMyCars(hostCars);
     }
+    return carItem;
   };
 
   const registerUser = async (
@@ -340,9 +355,10 @@ function CarContextProvider({ children }) {
   };
 
   const carDetails = async (id) => {
-    console.log(id);
+    // console.log(id);
     const data = await getDetails(id);
-    console.log(data); // this line
+    // console.log(data);
+    // this line
     return data;
   };
 
@@ -379,7 +395,7 @@ function CarContextProvider({ children }) {
     description,
     existingImage
   ) => {
-    console.log(location);
+    // console.log(location);
     // console.log(existingImage)
     await editCarServer(
       id,
@@ -454,6 +470,8 @@ function CarContextProvider({ children }) {
     getPopularCars().then((initialCars) => {
       setPopularCars(initialCars);
     });
+    // console.log(favCarItem)
+    return favCarItem;
   };
 
   const deleteFavouriteCars = async (id) => {
@@ -489,10 +507,10 @@ function CarContextProvider({ children }) {
   const providePayment = async (value, id, time) => {
     const data = await handleRazorpayPayment(value, id, time);
     await addBookedCars(value, id, data.razorpayResponse, time);
-    console.log(data.order.amount);
+    // console.log(data.order.amount);
     // setAmount(data.order.amount)
     // console.log(amount)
-    console.log(data);
+    // console.log(data);
     return data;
   };
 
@@ -522,7 +540,7 @@ function CarContextProvider({ children }) {
     // console.log(existingGid);
     // console.log(location);
     // console.log(existingImage)
-    await updateDocumentsService(
+    const data = await updateDocumentsService(
       id,
       frLicense,
       baLicense,
@@ -534,6 +552,7 @@ function CarContextProvider({ children }) {
     getDocuments(token).then((docs) => {
       setDocuments(docs);
     });
+    return data;
   };
 
   const updateProfile = async (
@@ -554,7 +573,7 @@ function CarContextProvider({ children }) {
       address,
       previousImage
     );
-    console.log(updatedUser);
+    // console.log(updatedUser);
     login(updatedUser, token, userType);
   };
 
@@ -570,10 +589,64 @@ function CarContextProvider({ children }) {
       return data;
     } catch (err) {
       const errMsg = err.response?.data?.message;
-      console.log(errMsg);
+      // console.log(errMsg);
       return errMsg;
     }
   };
+
+  const provideOtp = async (id, otp) => {
+    // console.log(otp)
+    try {
+      const data = await emailOtpService(id, otp);
+      return data;
+    } catch (err) {
+      const errMsg = err.response?.data?.message;
+      // console.log(errMsg);
+      return errMsg;
+    }
+  };
+
+  const otpResend = async (id) => {
+    const data = await resendOtp(id);
+    return data;
+  };
+
+  const providePhoneOtp = async (id) => {
+    try {
+      const data = await phoneOtpService(id);
+      return data;
+    } catch (err) {
+      const errMsg = err.response?.data?.message;
+      // console.log(errMsg);
+      return errMsg;
+    } 
+  }
+
+  const addPhoneOtp = async(id,otp) => {
+    try {
+      const data = await addphoneOtpService(id, otp);
+      return data;
+    } catch (err) {
+      const errMsg = err.response?.data?.message;
+      // console.log(errMsg);
+      return errMsg;
+    } 
+  }
+
+  const phoneotpResend = async (id) => {
+    const data = await resendPhoneOtp(id);
+    return data;
+  };
+
+  const sendmail = (email) => {
+    const data = sendEmailforVerify(email)
+    return data;
+  }
+
+  const sendPassword = (id, password, confirmPassword) => {
+    const data = rewritePassword(id, password, confirmPassword)
+    return data;
+  }
 
   return (
     <CarContext.Provider
@@ -617,6 +690,14 @@ function CarContextProvider({ children }) {
         updateDocumnets,
         updateProfile,
         updatePassword,
+        provideOtp,
+        otpResend,
+        providePhoneOtp,
+        addPhoneOtp,
+        phoneotpResend,
+        setToken,
+        sendmail,
+        sendPassword
       }}
     >
       {children}

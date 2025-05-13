@@ -7,33 +7,39 @@ import About from "./pages/About";
 import EditForm from "./pages/EditForm";
 import FavVehicle from "./pages/FavVehicle";
 import Bookings from "./pages/Bookings";
-import Invoice from "./components/Invoice"
+import Invoice from "./components/Invoice";
 import CarDetails from "./pages/CarDetails";
+import ChangePassword from "./pages/ChangePassword";
 import HostInvoice from "./components/HostInvoice";
-import Settings from "./pages/Settings"
+import Settings from "./pages/Settings";
 // import { Outlet } from "react-router-dom";
 import Uploadings from "./components/Uploadings";
 import Earnings from "./pages/Earnings";
 import OfferPage from "./components/OfferPage";
 import PaymentsHistory from "./pages/PaymentsHistory";
+import { Toaster } from "react-hot-toast";
 import Profile from "./components/Profile";
 import EditDocs from "./components/EditDocs";
 import CarContextProvider from "./store/carStore";
 import Documents from "./pages/Documents";
 import Dashboard from "./pages/Dashboard";
-import Payment from "./pages/Payment"
+import Payment from "./pages/Payment";
+import OtpVerifyMail from "./pages/OtpVerifyMail";
 import Service from "./pages/Service";
 import LogoutPrompt from "./components/LogoutPrompt";
 import HostHistory from "./pages/HostHistory";
+import Loader from "./components/Loader";
+import PhoneOtp from "./pages/PhoneOtp"
 import HomePage from "./pages/HomePage";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import LoginForm from "./pages/LoginForm";
 import SignupForm from "./pages/SignupForm";
 import HostRegister from "./pages/HostRegister";
+import EmailOtp from "./pages/EmailOtp";
+import VerifyEmail from "./pages/VerifyEmail";
 
 function App() {
-  const router = createBrowserRouter(
-    [
+  const router = createBrowserRouter([
     {
       path: "/",
       element: <Sidebar />,
@@ -63,33 +69,91 @@ function App() {
     },
     {
       path: "/consumer/bookings",
-      element: <Form />
+      element: <Form />,
     },
     {
       path: "/host/edit/:id",
-      element: <EditForm />
+      element: <EditForm />,
     },
     {
       path: "/logout",
-      element: <LogoutPrompt />
+      element: <LogoutPrompt />,
     },
     {
       path: "/editDocs",
-      element: <EditDocs />
+      element: <EditDocs />,
     },
     {
       path: "/invoice/:id",
-      element: <Invoice />
+      element: <Invoice />,
     },
     {
       path: "/hostinvoice/:id",
-      element: <HostInvoice />
+      element: <HostInvoice />,
+    },
+    {
+      path: "/user/emailotp/:id",
+      element: <EmailOtp />,
+    },
+    {
+      path: "/user/phoneotp/:id",
+      element: <PhoneOtp />,
+    },
+    {
+      path: "/user/verifymail",
+      element: <VerifyEmail />,
+    },
+    {
+      path: "/user/emailotp-password/:id",
+      element: <OtpVerifyMail />,
+    },
+    {
+      path: "/user/changepassword/:id",
+      element: <ChangePassword />,
     },
   ]);
 
   return (
     <CarContextProvider>
-      <RouterProvider router={router}/>
+      {/* <Toaster position="top-right" reverseOrder={false}/> */}
+      <Toaster
+        toastOptions={{
+          className: "rounded-md shadow-lg",
+          style: {
+            background: "#f8fafc",
+            color: "#334155",
+            padding: "1rem",
+            border: "1px solid #e2e8f0",
+            fontWeight: "500",
+          },
+          success: {
+            className: "border-l-4 border-green-500",
+            style: {
+              background: "#f0fdf4",
+              color: "#166534",
+            },
+            iconTheme: {
+              primary: "#16a34a",
+              secondary: "#ffffff",
+            },
+          },
+          error: {
+            className: "border-l-4 border-red-500",
+            style: {
+              background: "#fef2f2",
+              color: "#b91c1c",
+            },
+            iconTheme: {
+              primary: "#ef4444",
+              secondary: "#ffffff",
+            },
+          },
+        }}
+        position="bottom-right"
+        gutter={12}
+      />
+
+      <RouterProvider router={router} />
       {/* <Header></Header> */}
       {/* <HomePage></HomePage> */}
       {/* <Sidebar cars={cars}></Sidebar> */}

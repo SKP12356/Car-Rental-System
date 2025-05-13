@@ -4,7 +4,7 @@ import { CarContext } from "../store/carStore";
 
 const Bookings = () => {
   const { bookCars } = useContext(CarContext);
-  console.log(bookCars);
+  // console.log(bookCars);
   // console.log(bookCars.bookingCars)
 
   return (

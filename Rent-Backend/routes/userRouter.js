@@ -14,7 +14,7 @@ userRouter.delete(
 userRouter.get("/bookings", verifyToken, userController.getBookings);
 userRouter.post("/bookings/:id", verifyToken, userController.postBookings);
 userRouter.delete("/bookings/:id", verifyToken, userController.deleteBookings);
-userRouter.get("/", userController.searchCars);
+userRouter.get("/", verifyToken, userController.searchCars);
 userRouter.post("/payment", userController.paymentBookings);
 userRouter.post(
   "/documents",

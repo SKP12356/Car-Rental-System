@@ -10,22 +10,35 @@ const userSchema = mongoose.Schema({
   },
   secName: {
     type: String,
-    // required: true
+    required: true
   },
   userName: {
     type: String,
-    required: true,
-    unique: true
+    // required: true,
+    // unique: true
   },
   email: {
     type: String,
     required: true,
     unique: true
   },
+  isVerified: {
+    type: Boolean,
+    default: false,
+  },
+  otp: {
+    type: String,
+  },
   phone: {
     type: String,
-    required: true,
-    unique: true
+    // required: true,
+  },
+  isPhoneVerified: {
+    type: Boolean,
+    default: false,
+  },
+  phoneOtp: {
+    type: String,
   },
   password: {
     type: String,
@@ -33,8 +46,18 @@ const userSchema = mongoose.Schema({
   },
   confirmPassword: {
     type: String,
-    required: true
-  }
+    // required: true
+  },
+  googleId: {
+    type: String,
+    unique: true, 
+    sparse: true,  
+  },
+  githubId: {
+    type: String,
+    unique: true,
+    sparse: true,  
+  },
 })
 
 module.exports = mongoose.model("User", userSchema);

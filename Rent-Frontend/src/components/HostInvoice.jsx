@@ -8,7 +8,7 @@ const HostInvoice = () => {
   const { bookCars } = useContext(CarContext);
   const { id } = useParams();
   const selectedId = bookCars?.find((car) => car._id === id);
-  console.log(selectedId)
+  selectedId;
   const date = selectedId?.bookedAt?.split("-");
   const strDate = date?.[2].split(" ");
   // const invoiceRef = useRef();
@@ -26,7 +26,7 @@ const HostInvoice = () => {
     const imgData = canvas.toDataURL("image/png");
 
     // DEBUG LOG: See if it starts with data:image/png;base64
-    console.log("imgData:", imgData.slice(0, 30));
+    // console.log("imgData:", imgData.slice(0, 30));
 
     if (!imgData.startsWith("data:image/png")) {
       console.error("Image data is invalid or empty!");
@@ -66,7 +66,9 @@ const HostInvoice = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="bg-white p-4 rounded shadow-sm">
                 <p className="text-gray-500 text-sm mb-1">Vehicle</p>
-                <p className="font-semibold text-lg">{selectedId?.bookId.make} {selectedId?.bookId.model}</p>
+                <p className="font-semibold text-lg">
+                  {selectedId?.bookId.make} {selectedId?.bookId.model}
+                </p>
               </div>
               <div className="bg-white p-4 rounded shadow-sm">
                 <p className="text-gray-500 text-sm mb-1">Amount Paid</p>

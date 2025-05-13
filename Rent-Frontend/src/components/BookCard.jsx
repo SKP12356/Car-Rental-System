@@ -1,12 +1,14 @@
 import React, { useContext } from "react";
 import { CarContext } from "../store/carStore";
 import { Link } from "react-router-dom";
+import toast from "react-hot-toast";
 
 const BookCard = ({ vehicles }) => {
   const { deleteBookedCars } = useContext(CarContext);
 
   const handleRemove = (id) => {
     deleteBookedCars(id);
+    toast.error("Removed from bookings")
   };
 
   return (
@@ -108,7 +110,7 @@ const BookCard = ({ vehicles }) => {
                     className={`w-full py-2 px-3 rounded-lg font-medium text-sm ${
                       vehicle.bookId.status === "unavailable"
                         ? "bg-gray-200 text-gray-500 cursor-not-allowed"
-                        : "bg-green-600 text-white hover:bg-green-700"
+                        : "bg-green-600 text-white hover:bg-green-700 cursor-pointer"
                     } transition-colors`}
                     disabled={vehicle.bookId.status === "unavailable"}
                   >
@@ -116,7 +118,7 @@ const BookCard = ({ vehicles }) => {
                   </button>
                 </Link>
                 <button
-                  className="py-2 px-3 bg-red-400 text-black rounded-lg font-medium text-sm hover:bg-red-500 transition-colors"
+                  className="py-2 px-3 bg-red-400 text-black rounded-lg font-medium text-sm hover:bg-red-500 transition-colors cursor-pointer"
                   onClick={() => handleRemove(vehicle._id)}
                 >
                   Remove

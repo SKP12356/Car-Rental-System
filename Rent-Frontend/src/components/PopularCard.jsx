@@ -22,7 +22,7 @@ const PopularCard = ({ vehicles }) => {
   //   console.log("clicked");
   //   getDetailsCar(id);
   // };
-  console.log(vehicles);
+  // console.log(vehicles);
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
       {vehicles.map((vehicle) => {

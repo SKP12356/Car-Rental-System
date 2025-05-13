@@ -133,7 +133,7 @@ const Header = ({ showSidebar }) => {
             <div className="text-3xl text-amber-400 hover:text-amber-300 transition-colors">
               <button
                 onClick={handleSidebar}
-                className="p-1 hover:bg-indigo-700/50 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-300"
+                className="p-1 hover:bg-indigo-700/50 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-300 cursor-pointer"
                 aria-label={sidebar ? "Expand sidebar" : "Collapse sidebar"}
               >
                 {sidebar === false ? (

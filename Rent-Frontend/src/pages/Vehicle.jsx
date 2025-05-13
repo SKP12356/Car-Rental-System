@@ -2,6 +2,7 @@ import { useContext } from "react";
 import Card from "../components/Card";
 import { CarContext } from "../store/carStore";
 import SearchBox from "../components/SearchBox";
+import { useLocation } from "react-router-dom";
 // import "./Vehicle.css";
 
 // const Vehicle = () => {
@@ -104,8 +105,7 @@ import SearchBox from "../components/SearchBox";
 
 const Vehicle = () => {
   const { searchedCars, cars } = useContext(CarContext);
-  console.log(searchedCars);
-
+  
   return (
     <div className="bg-gray-50 min-h-screen">
       {/* Hero Section with Background */}
@@ -135,7 +135,7 @@ const Vehicle = () => {
             <h2 className="text-2xl font-bold text-gray-800">
               Available Vehicles
             </h2>
-            {searchedCars.length > 0 && (
+            {searchedCars?.length > 0 && (
               <p className="text-gray-600 font-medium">
                 {searchedCars.length}{" "}
                 {searchedCars.length === 1 ? "vehicle" : "vehicles"} found
@@ -144,7 +144,7 @@ const Vehicle = () => {
           </div>
 
           {/* Results display */}
-          {searchedCars.length > 0 ? (
+          {searchedCars?.length > 0 ? (
             <div className="transition-all duration-500 animate-fade-in">
               <Card vehicles={searchedCars} />
             </div>

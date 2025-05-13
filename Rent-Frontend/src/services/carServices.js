@@ -18,39 +18,43 @@ export const addCarService = async (
   image,
   description
 ) => {
-  const formData = new FormData();
-  formData.append("make", make);
-  formData.append("model", model);
-  formData.append("year", year);
-  formData.append("color", color);
-  formData.append("licensePlate", licensePlate);
-  formData.append("location", JSON.stringify(location));
-  formData.append("vehicleType", vehicleType);
-  formData.append("fuelType", fuelType);
-  formData.append("transmission", transmission);
-  formData.append("seats", seats);
-  formData.append("doors", doors);
-  formData.append("dailyRate", dailyRate);
-  formData.append("mileage", mileage);
-  formData.append("features", features);
-  image.forEach((img) => {
-    formData.append("image", img);
-  });
-  // formData.append("image", image);
-  formData.append("description", description);
+  try {
+    const formData = new FormData();
+    formData.append("make", make);
+    formData.append("model", model);
+    formData.append("year", year);
+    formData.append("color", color);
+    formData.append("licensePlate", licensePlate);
+    formData.append("location", JSON.stringify(location));
+    formData.append("vehicleType", vehicleType);
+    formData.append("fuelType", fuelType);
+    formData.append("transmission", transmission);
+    formData.append("seats", seats);
+    formData.append("doors", doors);
+    formData.append("dailyRate", dailyRate);
+    formData.append("mileage", mileage);
+    formData.append("features", features);
+    image.forEach((img) => {
+      formData.append("image", img);
+    });
+    // formData.append("image", image);
+    formData.append("description", description);
 
-  const response = await axios({
-    method: "POST",
-    url: "http://localhost:3000/host/cars",
-    headers: {
-      "Content-Type": "multipart/form-data",
-      ...getAuthHeader(),
-    },
-    data: formData,
-  });
-  console.log(formData);
-  const cars = await response.data;
-  return cars;
+    const response = await axios({
+      method: "POST",
+      url: "http://localhost:3000/host/cars",
+      headers: {
+        "Content-Type": "multipart/form-data",
+        ...getAuthHeader(),
+      },
+      data: formData,
+    });
+    // console.log(formData);
+    const cars = await response.data;
+    return cars;
+  } catch (error) {
+    console.error(error);
+  }
 };
 
 export const addUser = async (
@@ -63,26 +67,31 @@ export const addUser = async (
   password,
   confirmPassword
 ) => {
-  const formData = new FormData();
-  formData.append("image", image);
-  formData.append("firstName", firstName);
-  formData.append("secName", secName);
-  formData.append("userName", userName);
-  formData.append("email", email);
-  formData.append("phone", phone);
-  formData.append("password", password);
-  formData.append("confirmPassword", confirmPassword);
-  const response = await axios({
-    method: "POST",
-    url: "http://localhost:3000/auth/register",
-    headers: {
-      "Content-Type": "multipart/form-data",
-      ...getAuthHeader(),
-    },
-    data: formData,
-  });
-  const user = await response.data;
-  return user;
+  try {
+    const formData = new FormData();
+    formData.append("image", image);
+    formData.append("firstName", firstName);
+    formData.append("secName", secName);
+    formData.append("userName", userName);
+    formData.append("email", email);
+    formData.append("phone", phone);
+    formData.append("password", password);
+    formData.append("confirmPassword", confirmPassword);
+    const response = await axios({
+      method: "POST",
+      url: "http://localhost:3000/auth/register",
+      headers: {
+        "Content-Type": "multipart/form-data",
+        ...getAuthHeader(),
+      },
+      data: formData,
+    });
+    const user = await response.data;
+    console.log(user);
+    return user;
+  } catch (error) {
+    console.error(error);
+  }
 };
 
 export const addHost = async (
@@ -99,84 +108,109 @@ export const addHost = async (
   idType,
   idNumber
 ) => {
-  const formData = new FormData();
-  formData.append("image", image);
-  formData.append("fullName", fullName);
-  formData.append("email", email);
-  formData.append("phone", phone);
-  formData.append("password", password);
-  formData.append("confirmPassword", confirmPassword);
-  formData.append("addressLine", addressLine);
-  formData.append("city", city);
-  formData.append("state", state);
-  formData.append("pincode", pincode);
-  formData.append("idType", idType);
-  formData.append("idNumber", idNumber);
-  const response = await axios({
-    method: "POST",
-    url: "http://localhost:3000/auth/hostregister",
-    headers: {
-      "Content-Type": "multipart/form-data",
-      ...getAuthHeader(),
-    },
-    data: formData,
-  });
-  const host = await response.data;
-  return host;
+  try {
+    const formData = new FormData();
+    formData.append("image", image);
+    formData.append("fullName", fullName);
+    formData.append("email", email);
+    formData.append("phone", phone);
+    formData.append("password", password);
+    formData.append("confirmPassword", confirmPassword);
+    formData.append("addressLine", addressLine);
+    formData.append("city", city);
+    formData.append("state", state);
+    formData.append("pincode", pincode);
+    formData.append("idType", idType);
+    formData.append("idNumber", idNumber);
+    const response = await axios({
+      method: "POST",
+      url: "http://localhost:3000/auth/hostregister",
+      headers: {
+        "Content-Type": "multipart/form-data",
+        ...getAuthHeader(),
+      },
+      data: formData,
+    });
+    const host = await response.data;
+    console.log(host);
+    return host;
+  } catch (error) {
+    console.error(error);
+  }
 };
 
 export const loginUser = async (email, password) => {
-  const response = await axios({
-    method: "POST",
-    url: "http://localhost:3000/auth/login",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    data: {
-      email,
-      password,
-    },
-  });
-  const user = await response.data;
-  // console.log(user)
-  return user; // have token and user info
+  try {
+    const response = await axios({
+      method: "POST",
+      url: "http://localhost:3000/auth/login",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      data: {
+        email,
+        password,
+      },
+    });
+    const user = await response.data;
+    // console.log(user)
+    return user; // have token and user info
+  } catch (error) {
+    console.error(error);
+  }
 };
 
 export const getCarServices = async () => {
-  const response = await axios.get("http://localhost:3000/host/cars");
-  const cars = await response.data;
-  // console.log(cars)
-  return cars;
+  try {
+    const response = await axios.get("http://localhost:3000/host/cars");
+    const cars = await response.data;
+    // console.log(cars)
+    return cars;
+  } catch (error) {
+    console.error(error);
+  }
 };
 
 export const getMyCarServices = async (token) => {
-  const response = await axios.get("http://localhost:3000/host/cars/mycars", {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
-  const cars = await response.data;
-  // return cars.map(mapServices);
-  return cars;
+  try {
+    const response = await axios.get("http://localhost:3000/host/cars/mycars", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    const cars = await response.data;
+    // return cars.map(mapServices);
+    return cars;
+  } catch (error) {
+    console.error(error);
+  }
 };
 
 export const deleteCarServer = async (id) => {
-  await axios(`http://localhost:3000/host/cars/${id}`, {
-    method: "DELETE",
-    headers: getAuthHeader(),
-  });
-  await deleteFavCar(id);
-  await deleteBookingCar(id);
-  return id;
+  try {
+    await axios(`http://localhost:3000/host/cars/${id}`, {
+      method: "DELETE",
+      headers: getAuthHeader(),
+    });
+    await deleteFavCar(id);
+    await deleteBookingCar(id);
+    return id;
+  } catch (error) {
+    console.error(error);
+  }
 };
 
 export const getDetails = async (id) => {
-  const response = await axios.get(
-    `http://localhost:3000/host/cars/details/${id}`
-  );
-  const car = await response.data;
-  console.log(car);
-  return car;
+  try {
+    const response = await axios.get(
+      `http://localhost:3000/host/cars/details/${id}`
+    );
+    const car = await response.data;
+    // console.log(car);
+    return car;
+  } catch (error) {
+    console.error(error);
+  }
 };
 
 export const editCarServer = async (
@@ -199,41 +233,45 @@ export const editCarServer = async (
   description,
   existingImage
 ) => {
-  console.log(existingImage)
-  const formData = new FormData();
-  formData.append("make", make);
-  formData.append("model", model);
-  formData.append("year", year);
-  formData.append("color", color);
-  formData.append("licensePlate", licensePlate);
-  formData.append("location", JSON.stringify(location));
-  formData.append("vehicleType", vehicleType);
-  formData.append("fuelType", fuelType);
-  formData.append("transmission", transmission);
-  formData.append("seats", seats);
-  formData.append("doors", doors);
-  formData.append("dailyRate", dailyRate);
-  formData.append("mileage", mileage);
-  formData.append("features", features);
-  // formData.append("image", image);
-  image.forEach((img) => {
-    formData.append("image", img);
-  });
-  formData.append("description", description);
-  // console.log(existingImage)
-  // formData.append("existingImage", existingImage);
-  formData.append("existingImage", JSON.stringify(existingImage));
-  const response = await axios(`http://localhost:3000/host/cars/${id}`, {
-    method: "PUT",
-    headers: {
-      "Content-Type": "multipart/form-data",
-      ...getAuthHeader(),
-    },
-    data: formData,
-  });
-  const car = await response.data;
-  // return mapServices(car);
-  return car;
+  try {
+    // console.log(existingImage);
+    const formData = new FormData();
+    formData.append("make", make);
+    formData.append("model", model);
+    formData.append("year", year);
+    formData.append("color", color);
+    formData.append("licensePlate", licensePlate);
+    formData.append("location", JSON.stringify(location));
+    formData.append("vehicleType", vehicleType);
+    formData.append("fuelType", fuelType);
+    formData.append("transmission", transmission);
+    formData.append("seats", seats);
+    formData.append("doors", doors);
+    formData.append("dailyRate", dailyRate);
+    formData.append("mileage", mileage);
+    formData.append("features", features);
+    // formData.append("image", image);
+    image.forEach((img) => {
+      formData.append("image", img);
+    });
+    formData.append("description", description);
+    // console.log(existingImage)
+    // formData.append("existingImage", existingImage);
+    formData.append("existingImage", JSON.stringify(existingImage));
+    const response = await axios(`http://localhost:3000/host/cars/${id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "multipart/form-data",
+        ...getAuthHeader(),
+      },
+      data: formData,
+    });
+    const car = await response.data;
+    // return mapServices(car);
+    return car;
+  } catch (error) {
+    console.error(error);
+  }
 };
 
 // const mapServices = (serverCar) => {
@@ -260,93 +298,133 @@ export const editCarServer = async (
 
 export const getFavouriteCar = async (token) => {
   // console.log(token)
-  const response = await axios.get(
-    "http://localhost:3000/user/cars/favourite",
-    {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    }
-  );
-  const favCars = await response.data;
-  // return favCars.map(mapServices);
-  return favCars;
+  try {
+    const response = await axios.get(
+      "http://localhost:3000/user/cars/favourite",
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    const favCars = await response.data;
+    // return favCars.map(mapServices);
+    return favCars;
+  } catch (error) {
+    console.error(error);
+  }
 };
 
 export const addFavCar = async (id) => {
-  const response = await axios({
-    method: "POST",
-    url: `http://localhost:3000/user/cars/favourite/${id}`,
-    headers: {
-      "Content-Type": "application/json",
-      ...getAuthHeader(),
-    },
-  });
-  const car = await response.data;
-  // console.log(item);
-  // return mapServices(item);
-  return car;
+  try {
+    const response = await axios({
+      method: "POST",
+      url: `http://localhost:3000/user/cars/favourite/${id}`,
+      headers: {
+        "Content-Type": "application/json",
+        ...getAuthHeader(),
+      },
+    });
+    const car = await response.data;
+    // console.log(item);
+    // return mapServices(item);
+    // console.log(car)
+    return car;
+  } catch (error) {
+    console.error(error);
+  }
 };
 
 export const deleteFavCar = async (id) => {
-  await axios(`http://localhost:3000/user/cars/favourite/${id}`, {
-    method: "DELETE",
-    headers: getAuthHeader(),
-  });
-  return id;
+  try {
+    await axios(`http://localhost:3000/user/cars/favourite/${id}`, {
+      method: "DELETE",
+      headers: getAuthHeader(),
+    });
+    return id;
+  } catch (error) {
+    console.error(error);
+  }
 };
 
 export const getBookingCar = async (token) => {
-  const response = await axios.get("http://localhost:3000/user/cars/bookings", {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
-  const bookCars = await response.data;
-  // return bookCars.map(mapServices);
-  return bookCars;
+  try {
+    const response = await axios.get(
+      "http://localhost:3000/user/cars/bookings",
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    const bookCars = await response.data;
+    // return bookCars.map(mapServices);
+    return bookCars;
+  } catch (error) {
+    console.error(error);
+  }
 };
 
 export const addBookingCar = async (value, id, pays, unavailableTime) => {
-  const response = await axios({
-    method: "POST",
-    url: `http://localhost:3000/user/cars/bookings/${id}`,
-    headers: {
-      "Content-Type": "application/json",
-      ...getAuthHeader(),
-    },
-    data: {
-      value: value,
-      paymentId: pays.razorpay_payment_id,
-      orderId: pays.razorpay_order_id,
-      unavailableTime: unavailableTime,
-    },
-  });
-  const car = await response.data;
-  // return mapServices(item);
-  return car;
+  try {
+    const response = await axios({
+      method: "POST",
+      url: `http://localhost:3000/user/cars/bookings/${id}`,
+      headers: {
+        "Content-Type": "application/json",
+        ...getAuthHeader(),
+      },
+      data: {
+        value: value,
+        paymentId: pays.razorpay_payment_id,
+        orderId: pays.razorpay_order_id,
+        unavailableTime: unavailableTime,
+      },
+    });
+    const car = await response.data;
+    // return mapServices(item);
+    return car;
+  } catch (error) {
+    console.error(error);
+  }
 };
 
 export const deleteBookingCar = async (id) => {
-  await axios(`http://localhost:3000/user/cars/bookings/${id}`, {
-    method: "DELETE",
-    headers: getAuthHeader(),
-  });
-  return id;
+  try {
+    await axios(`http://localhost:3000/user/cars/bookings/${id}`, {
+      method: "DELETE",
+      headers: getAuthHeader(),
+    });
+    return id;
+  } catch (error) {
+    console.error(error);
+  }
 };
 
 export const searchCarServices = async (query) => {
-  const response = await axios.get(
-    `http://localhost:3000/user/cars?search=${query}`
-  );
-  const resultCars = await response.data;
-  return resultCars;
+  try {
+    const response = await axios.get(
+      `http://localhost:3000/user/cars?search=${query}`,
+      {
+        headers: {
+          ...getAuthHeader(),
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    console.error(error);
+  }
 };
 
 // Helper function to retrieve token :
 export const getAuthHeader = () => {
-  const token = localStorage.getItem("token");
-  return token ? { Authorization: `Bearer ${token}` } : {};
+  try {
+    const token = localStorage.getItem("token");
+    return token ? { Authorization: `Bearer ${token}` } : {};
+  } catch (error) {
+    console.error(error);
+  }
 };
 
 export const handleRazorpayPayment = async (value, carId, unavailableTime) => {
@@ -370,7 +448,8 @@ export const handleRazorpayPayment = async (value, carId, unavailableTime) => {
         order_id: order.id,
         handler: async function (response) {
           alert("✅ Payment Successful!");
-          console.log(response); // Handle post-payment logic
+          // console.log(response);
+          // Handle post-payment logic
           // onClose(); // Close modal if needed
           try {
             // 3. Call booking service after payment
@@ -388,7 +467,7 @@ export const handleRazorpayPayment = async (value, carId, unavailableTime) => {
             console.error("Booking after payment failed:", err);
             alert("Booking failed. Please contact support.");
           }
-          console.log(order);
+          // console.log(order);
           resolve({
             order,
             razorpayResponse: {
@@ -411,7 +490,7 @@ export const handleRazorpayPayment = async (value, carId, unavailableTime) => {
       const razorpay = new window.Razorpay(options);
       razorpay.open();
       // console.log(order);
-      console.log(options);
+      // console.log(options);
     });
     // console.log(response)
   } catch (error) {
@@ -421,23 +500,27 @@ export const handleRazorpayPayment = async (value, carId, unavailableTime) => {
 };
 
 export const uploadDocumentsService = async (frLicense, baLicense, gId) => {
-  console.log(frLicense, baLicense, gId);
-  const formData = new FormData();
-  formData.append("frLicense", frLicense);
-  formData.append("baLicense", baLicense);
-  formData.append("gId", gId);
-  // console.log(formData)
+  try {
+    // console.log(frLicense, baLicense, gId);
+    const formData = new FormData();
+    formData.append("frLicense", frLicense);
+    formData.append("baLicense", baLicense);
+    formData.append("gId", gId);
+    // console.log(formData)
 
-  const response = await axios({
-    method: "POST",
-    url: "http://localhost:3000/user/cars/documents",
-    headers: {
-      "Content-Type": "multipart/form-data",
-      ...getAuthHeader(),
-    },
-    data: formData,
-  });
-  return response.data;
+    const response = await axios({
+      method: "POST",
+      url: "http://localhost:3000/user/cars/documents",
+      headers: {
+        "Content-Type": "multipart/form-data",
+        ...getAuthHeader(),
+      },
+      data: formData,
+    });
+    return response.data;
+  } catch (error) {
+    console.error(error);
+  }
 };
 
 export const updateDocumentsService = async (
@@ -457,59 +540,78 @@ export const updateDocumentsService = async (
   // console.log(existingBackdl);
   // console.log(existingGid);
   // console.log(frLicense, baLicense, gId);
-  const formData = new FormData();
-  if (frLicense) formData.append("frLicense", frLicense);
-  if (baLicense) formData.append("baLicense", baLicense);
-  if (gId) formData.append("gId", gId);
-  formData.append("existingFrontdl", existingFrontdl);
-  formData.append("existingBackdl", existingBackdl);
-  formData.append("existingGid", existingGid);
-  // console.log(formData)
+  try {
+    const formData = new FormData();
+    if (frLicense) formData.append("frLicense", frLicense);
+    if (baLicense) formData.append("baLicense", baLicense);
+    if (gId) formData.append("gId", gId);
+    formData.append("existingFrontdl", existingFrontdl);
+    formData.append("existingBackdl", existingBackdl);
+    formData.append("existingGid", existingGid);
+    // console.log(formData)
 
-  const response = await axios({
-    url: `http://localhost:3000/user/cars/uplodedDocs/${id}`,
-    method: "PUT",
-    headers: {
-      "Content-Type": "multipart/form-data",
-      ...getAuthHeader(),
-    },
-    data: formData,
-  });
-  // return response.data;
-  const doc = await response.data;
-  // return mapServices(car);
-  return doc;
+    const response = await axios({
+      url: `http://localhost:3000/user/cars/uplodedDocs/${id}`,
+      method: "PUT",
+      headers: {
+        "Content-Type": "multipart/form-data",
+        ...getAuthHeader(),
+      },
+      data: formData,
+    });
+    // return response.data;
+    const doc = await response.data;
+    // return mapServices(car);
+    return doc;
+  } catch (error) {
+    console.error(error);
+  }
 };
 
 export const getDocuments = async (token) => {
-  const response = await axios.get(
-    "http://localhost:3000/user/cars/uplodedDocs",
-    {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    }
-  );
-  const bookCars = await response.data;
-  return bookCars;
-  // return bookCars.map(mapServices);
+  try {
+    const response = await axios.get(
+      "http://localhost:3000/user/cars/uplodedDocs",
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    const bookCars = await response.data;
+    return bookCars;
+    // return bookCars.map(mapServices);
+  } catch (error) {
+    console.error(error);
+  }
 };
 
 export const getHistory = async (token) => {
-  const response = await axios.get("http://localhost:3000/user/cars/history", {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
-  const history = await response.data;
-  return history;
-  // return bookCars.map(mapServices);
+  try {
+    const response = await axios.get(
+      "http://localhost:3000/user/cars/history",
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    const history = await response.data;
+    return history;
+    // return bookCars.map(mapServices);
+  } catch (error) {
+    console.error(error);
+  }
 };
 
 export const getPopularCars = async () => {
-  const response = await axios.get("http://localhost:3000/user/cars/popular");
-  const cars = await response.data;
-  return cars;
+  try {
+    const response = await axios.get("http://localhost:3000/user/cars/popular");
+    const cars = await response.data;
+    return cars;
+  } catch (error) {
+    console.error(error);
+  }
 };
 
 export const modifyUserProfile = async (
@@ -527,27 +629,31 @@ export const modifyUserProfile = async (
   // console.log(email);
   // console.log(phone);
   // console.log(address);
-  console.log(previousImage);
-  const formData = new FormData();
-  if (image) formData.append("image", image);
-  formData.append("name", name);
-  formData.append("email", email);
-  formData.append("phone", phone);
-  formData.append("address", address);
-  formData.append("previousImage", previousImage);
-  const response = await axios({
-    url: `http://localhost:3000/auth/updateprofile/${id}`,
-    method: "PUT",
-    headers: {
-      "Content-Type": "multipart/form-data",
-      ...getAuthHeader(),
-    },
-    data: formData,
-  });
-  // return response.data;
-  const user = await response.data;
-  // return mapServices(car);
-  return user;
+  try {
+    // console.log(previousImage);
+    const formData = new FormData();
+    if (image) formData.append("image", image);
+    formData.append("name", name);
+    formData.append("email", email);
+    formData.append("phone", phone);
+    formData.append("address", address);
+    formData.append("previousImage", previousImage);
+    const response = await axios({
+      url: `http://localhost:3000/auth/updateprofile/${id}`,
+      method: "PUT",
+      headers: {
+        "Content-Type": "multipart/form-data",
+        ...getAuthHeader(),
+      },
+      data: formData,
+    });
+    // return response.data;
+    const user = await response.data;
+    // return mapServices(car);
+    return user;
+  } catch (error) {
+    console.error(error);
+  }
 };
 
 export const updateUserPassword = async (
@@ -556,34 +662,191 @@ export const updateUserPassword = async (
   newPassword,
   confirmPassword
 ) => {
-  const response = await axios({
-    url: `http://localhost:3000/auth/updatepassword/${id}`,
-    method: "PUT",
-    headers: {
-      "Content-Type": "application/json",
-      ...getAuthHeader(),
-    },
-    data: {
-      password,
-      newPassword,
-      confirmPassword,
-    },
-  });
-  const user = await response.data;
-  console.log(user);
-  return user;
-};
-
-export const searchHistoryServices = async (query) => {
-  const response = await axios.get(
-    `http://localhost:3000/host/cars/searchHistory?search=${query}`,
-    {
+  try {
+    const response = await axios({
+      url: `http://localhost:3000/auth/updatepassword/${id}`,
+      method: "PUT",
       headers: {
         "Content-Type": "application/json",
         ...getAuthHeader(),
       },
-    }
-  );
-  const resultCars = await response.data;
-  return resultCars;
+      data: {
+        password,
+        newPassword,
+        confirmPassword,
+      },
+    });
+    const user = await response.data;
+    // console.log(user);
+    return user;
+  } catch (error) {
+    console.error(error);
+  }
 };
+
+export const searchHistoryServices = async (query) => {
+  try {
+    const response = await axios.get(
+      `http://localhost:3000/host/cars/searchHistory?search=${query}`,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          ...getAuthHeader(),
+        },
+      }
+    );
+    const resultCars = await response.data;
+    return resultCars;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const emailOtpService = async (id, otp) => {
+  console.log(otp);
+  console.log(id);
+  try {
+    const response = await axios({
+      method: "POST",
+      url: `http://localhost:3000/auth/verify-email/${id}`,
+      headers: {
+        "Content-Type": "application/json",
+        // ...getAuthHeader(),
+      },
+      data: {
+        otp,
+      },
+    });
+    const data = await response.data;
+    // return mapServices(item);
+    console.log(data);
+    return data;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const resendOtp = async (id) => {
+  try {
+    const response = await axios({
+      method: "POST",
+      url: `http://localhost:3000/auth/resendOtp/${id}`,
+      headers: {
+        "Content-Type": "application/json",
+        // ...getAuthHeader(),
+      },
+    });
+    const data = await response.data;
+    // return mapServices(item);
+    console.log(data);
+    return data;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const phoneOtpService = async (id) => {
+  // console.log(otp);
+  console.log(id);
+  try {
+    const response = await axios({
+      method: "POST",
+      url: `http://localhost:3000/auth/verify-phone/${id}`,
+      headers: {
+        "Content-Type": "application/json",
+        // ...getAuthHeader(),
+      },
+    });
+    const data = await response.data;
+    // return mapServices(item);
+    console.log(data);
+    return data;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const addphoneOtpService = async (id, otp) => {
+  try {
+    const response = await axios({
+      method: "POST",
+      url: `http://localhost:3000/auth/verify-otp/${id}`,
+      headers: {
+        "Content-Type": "application/json",
+        // ...getAuthHeader(),
+      },
+      data: {
+        otp,
+      },
+    });
+    const data = await response.data;
+    // return mapServices(item);
+    console.log(data);
+    return data;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const resendPhoneOtp = async (id) => {
+  try {
+    const response = await axios({
+      method: "POST",
+      url: `http://localhost:3000/auth/resendPhoneOtp/${id}`,
+      headers: {
+        "Content-Type": "application/json",
+        // ...getAuthHeader(),
+      },
+    });
+    const data = await response.data;
+    // return mapServices(item);
+    console.log(data);
+    return data;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const sendEmailforVerify = async(email) => {
+  try {
+    const response = await axios({
+      method: "POST",
+      url: `http://localhost:3000/auth/verifyemail-password`,
+      headers: {
+        "Content-Type": "application/json",
+        // ...getAuthHeader(),
+      },
+      data: {
+        email
+      }
+    });
+    const data = await response.data;
+    console.log(data);
+    return data;
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+export const rewritePassword = async(id, password, confirmPassword) => {
+  console.log(password)
+  try {
+    const response = await axios({
+      method: "POST",
+      url: `http://localhost:3000/auth/changePassword/${id}`,
+      headers: {
+        "Content-Type": "application/json",
+        // ...getAuthHeader(),
+      },
+      data: {
+        password,
+        confirmPassword
+      }
+    });
+    const data = await response.data;
+    console.log(data);
+    return data;
+  } catch (error) {
+    console.error(error);
+  }
+}

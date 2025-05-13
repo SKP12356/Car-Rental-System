@@ -13,10 +13,24 @@ const hostSchema = mongoose.Schema({
     required: true,
     unique: true
   },
+  isVerified: {
+    type: Boolean,
+    default: false,
+  },
+  otp: {
+    type: String,
+  },
   phone: {
     type: String,
-    required: true,
+    // required: true,
     unique: true
+  },
+  isPhoneVerified: {
+    type: Boolean,
+    default: false,
+  },
+  phoneOtp: {
+    type: String,
   },
   password: {
     type: String,
@@ -24,32 +38,42 @@ const hostSchema = mongoose.Schema({
   },
   confirmPassword: {
     type: String,
-    required: true
+    // required: true
   },
   addressLine: {
     type: String,
-    required: true
+    // required: true
   },
   city: {
     type: String,
-    required: true
+    // required: true
   },
   state: {
     type: String,
-    required: true
+    // required: true
   },
   pincode: {
     type: String,
-    required: true
+    // required: true
   },
   idType: {
     type: String,
-    required: true
+    // required: true
   },
   idNumber: {
     type: String,
-    required: true,
-    unique: true
+    // required: true,
+    // unique: true
+  },
+  googleId: {
+    type: String,
+    unique: true, 
+    sparse: true,  
+  },
+  githubId: {
+    type: String,
+    unique: true,
+    sparse: true,  
   },
 })
 

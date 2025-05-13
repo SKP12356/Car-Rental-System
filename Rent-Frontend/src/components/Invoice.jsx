@@ -25,7 +25,7 @@ const Invoice = () => {
     const imgData = canvas.toDataURL("image/png");
 
     // DEBUG LOG: See if it starts with data:image/png;base64
-    console.log("imgData:", imgData.slice(0, 30));
+    // console.log("imgData:", imgData.slice(0, 30));
 
     if (!imgData.startsWith("data:image/png")) {
       console.error("Image data is invalid or empty!");

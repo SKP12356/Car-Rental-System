@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import { CarContext } from "../store/carStore";
 import { Link } from "react-router-dom";
 import { MdFavorite, MdClose } from "react-icons/md";
+import toast from "react-hot-toast";
 
 const FavCard = ({ vehicles }) => {
   const { deleteFavouriteCars, favourite, setFavourite } = useContext(CarContext);
@@ -9,6 +10,7 @@ const FavCard = ({ vehicles }) => {
   const handleRemove = (id) => {
     deleteFavouriteCars(id);
     setFavourite(false);
+    toast.error("Removed from favourites")
   };
 
   return (
@@ -30,7 +32,7 @@ const FavCard = ({ vehicles }) => {
               </div>
               <button 
                 onClick={() => handleRemove(vehicle?._id)}
-                className="text-gray-500 hover:text-red-600 transition-colors"
+                className="text-gray-500 hover:text-red-600 transition-colors cursor-pointer"
               >
                 <MdClose className="text-lg" />
               </button>
@@ -39,7 +41,7 @@ const FavCard = ({ vehicles }) => {
             {/* Vehicle Image */}
             <div className="relative h-48 overflow-hidden">
               <img
-                src={`http://localhost:3000/${vehicle?.image[0]}`}
+                src={`http://localhost:3000/${vehicle?.image?.[0]}`}
                 alt={`${vehicle?.make} ${vehicle?.model}`}
                 className="w-full h-full object-cover transform hover:scale-105 transition-transform duration-500"
               />

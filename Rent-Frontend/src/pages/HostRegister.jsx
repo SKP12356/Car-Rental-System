@@ -50,8 +50,10 @@ const HostRegister = () => {
       idType,
       idNumber
     );
-    if (data.host) {
-      navigate("/user/login");
+    console.log(data)
+    if (data?.host) {
+      // navigate("/user/login");
+      navigate(`/user/emailotp/${data?.host._id}`);
     } else {
       setErr(data);
     }
@@ -67,6 +69,10 @@ const HostRegister = () => {
       const imageUrl = URL.createObjectURL(file);
       setImageShow(imageUrl);
     }
+  };
+
+  const handleGoogleLogin = () => {
+    window.location.href = "http://localhost:3000/auth/hostgoogle";
   };
 
   return (
@@ -359,17 +365,18 @@ const HostRegister = () => {
             <div className="absolute inset-0 flex items-center">
               <div className="w-full border-t border-gray-300"></div>
             </div>
-            <div className="relative flex justify-center text-sm">
+            {/* <div className="relative flex justify-center text-sm">
               <span className="px-2 bg-gradient-to-r from-blue-50 to-indigo-50 text-gray-500">
                 Or continue with
               </span>
-            </div>
+            </div> */}
           </div>
 
-          <div className="grid grid-cols-2 gap-4 mt-6">
+          {/* <div className="grid grid-cols-2 gap-4 mt-6">
             <button
               type="button"
-              className="w-full inline-flex justify-center items-center py-3 px-4 border border-gray-300 rounded-xl shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 transition cursor-no-drop"
+              onClick={handleGoogleLogin}
+              className="w-full inline-flex justify-center ml-55 items-center py-3 px-4 border border-gray-300 rounded-xl shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 transition cursor-pointer"
             >
               <svg className="h-5 w-5 mr-2" viewBox="0 0 24 24" width="24" height="24" xmlns="http://www.w3.org/2000/svg">
                 <g transform="matrix(1, 0, 0, 1, 27.009001, -39.238998)">
@@ -390,7 +397,7 @@ const HostRegister = () => {
               </svg>
               Facebook
             </button>
-          </div>
+          </div> */}
           
           <p className="text-center text-sm text-gray-600 mt-6">
             Already have an account?{" "}

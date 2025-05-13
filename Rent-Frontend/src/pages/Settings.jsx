@@ -65,9 +65,9 @@ const Settings = () => {
       newPassword,
       confirmPassword
     );
-    console.log(data);
+    // console.log(data);
     if (data.password) {
-      console.log("use hot toast to show the error");
+      // console.log("use hot toast to show the error");
       setErr(null);
     } else {
       setErr(data.message);

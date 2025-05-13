@@ -59,7 +59,7 @@ const EditForm = () => {
     };
     fetchDetails();
   }, [id]);
-  console.log(editCars);
+  // console.log(editCars);
   // if (editCars === null) {
   //   return <p className="text-center mt-10 text-gray-500">Loading car details...</p>;
   // }
@@ -80,7 +80,7 @@ const EditForm = () => {
   const descriptionRef = useRef();
 
   const onhandleAdd = (event) => {
-    console.log("button clicked");
+    // console.log("button clicked");
     event.preventDefault();
     const make = makeRef.current.value;
     const model = modelRef.current.value;
@@ -100,14 +100,14 @@ const EditForm = () => {
     const image = Array.from(imagefile);
     const description = descriptionRef.current.value;
     // console.log(image);
-    console.log(editCars?.location);
-    console.log(locationData.location);
+    // console.log(editCars?.location);
+    // console.log(locationData.location);
     if (locationData.location === "") {
       locationData.location = editCars?.location.location;
       locationData.lat = editCars?.location.lat;
       locationData.lng = editCars?.location.lng;
     }
-    console.log(locationData);
+    // console.log(locationData);
     updateCars(
       editCars._id,
       make,

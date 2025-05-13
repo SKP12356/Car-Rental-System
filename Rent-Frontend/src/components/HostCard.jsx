@@ -11,7 +11,7 @@ const HostCard = ({ vehicles }) => {
 
   const handleDelete = (id) => {
     deleteCars(id);
-    console.log("clicked delete");
+    // console.log("clicked delete");
   };
 
   return (

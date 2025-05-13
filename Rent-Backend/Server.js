@@ -6,10 +6,17 @@ const multer = require("multer");
 const hostRouter = require("./routes/hostRouter");
 const userRouter = require("./routes/userRouter");
 const rootDir = require("./utils/path");
+const expressSession = require("express-session");
 const authRouter = require("./routes/authRouter");
+<<<<<<< HEAD
 require("dotenv").config();
 
+=======
+>>>>>>> 32ff78d (Updated multiple files with recent changes)
 const app = express();
+require("dotenv").config();
+const passport = require("passport");
+require("./middlewares/passport");
 
 // const storage = multer.diskStorage({
 //   destination: (req, file, cb) => {
@@ -55,6 +62,19 @@ app.use(cors());
 app.use("/host/cars", hostRouter);
 app.use("/user/cars", userRouter);
 app.use("/auth", authRouter);
+
+app.use(
+  expressSession({
+    secret: process.env.SESSION_SECRET, // A secret key for session signing
+    resave: false,  // Prevent re-saving the session if not modified
+    saveUninitialized: false,  // Don't save an uninitialized session
+    cookie: { secure: false }  // For development (set `secure: true` in production with HTTPS)
+  })
+);
+
+// Initialize Passport
+app.use(passport.initialize());
+app.use(passport.session());
 
 const PORT = 3000;
 

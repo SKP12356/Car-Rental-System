@@ -133,8 +133,8 @@ const Service = () => {
             Book before June 30th and save on your next adventure
           </p>
           <Link to="/consumer/offers">
-            <button className="bg-white text-indigo-600 font-medium py-2 px-6 rounded-md cursor-no-drop"
-            disabled>
+            <button className="bg-white text-indigo-600 font-medium py-2 px-6 rounded-md cursor-pointer"
+            >
               View Offers
             </button>
           </Link>

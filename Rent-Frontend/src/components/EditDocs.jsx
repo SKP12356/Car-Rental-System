@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
 import { CarContext } from "../store/carStore";
 import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 const EditDocs = () => {
   const { addDocument, documents, updateDocumnets } = useContext(CarContext);
@@ -9,7 +10,7 @@ const EditDocs = () => {
   const backRef = useRef();
   const gRef = useRef();
   const navigate = useNavigate()
-  console.log(documents);
+  // console.log(documents);
   // console.log(documents[0].frLicense);
   // console.log(documents[0]?.frLicense)
 
@@ -27,7 +28,7 @@ const EditDocs = () => {
     }
   }, [documents]);
 
-  const handleDoc = (event) => {
+  const handleDoc = async(event) => {
     event.preventDefault();
     const frLicense = frontRef.current.files[0];
     const baLicense = backRef.current.files[0];
@@ -39,7 +40,7 @@ const EditDocs = () => {
     // console.log(documents[0].frLicense)
     // console.log(documents[0].baLicense)
     // console.log(documents[0].gId)
-    updateDocumnets(
+    const data = await updateDocumnets(
       documents[0]._id,
       frLicense,
       baLicense,
@@ -48,6 +49,9 @@ const EditDocs = () => {
       documents[0].baLicense,
       documents[0].gId
     );
+    if(data) {
+      toast.success("Documents uploaded successfully")
+    }
     navigate("/user/documents")
     // setFrontFileName("");
     // setBackFileName("");

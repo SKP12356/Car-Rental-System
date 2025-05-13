@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 
 const FavVehicle = () => {
   const { favCars } = useContext(CarContext);
-  console.log(favCars);
+  // console.log(favCars);
 
   return (
     <div className="bg-gradient-to-b from-gray-50 to-gray-100 min-h-screen py-12">

@@ -9,7 +9,7 @@ const Documents = () => {
   const frontRef = useRef();
   const backRef = useRef();
   const gRef = useRef();
-  console.log(documents)
+  // console.log(documents)
   // console.log(documents[0].frLicense);
   // console.log(documents[0]?.frLicense)
 

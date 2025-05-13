@@ -1,6 +1,7 @@
 import React, { useContext, useRef, useState, useEffect } from "react";
 import { CarContext } from "../store/carStore";
 import { Link } from "react-router-dom";
+import toast from "react-hot-toast";
 
 const Form = () => {
   const { addCars } = useContext(CarContext);
@@ -76,7 +77,7 @@ const Form = () => {
 
     const description = descriptionRef.current.value;
 
-    addCars(
+    const data = await addCars(
       make,
       model,
       year,
@@ -94,6 +95,13 @@ const Form = () => {
       image,
       description
     );
+
+    if(data) {
+      toast.success("Home added successfully");
+    } else {
+      toast.error("Error adding the vehicle")
+    }
+    
 
     // Reset form
     makeRef.current.value = "";

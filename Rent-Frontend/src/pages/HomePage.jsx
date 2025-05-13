@@ -78,7 +78,7 @@ const HomePage = () => {
                 </div>
               </div>
               <button
-                className="w-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-semibold py-4 px-6 rounded-lg hover:from-indigo-700 hover:to-purple-700 transition duration-300 transform hover:scale-[1.02] shadow-md"
+                className="w-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-semibold py-4 px-6 rounded-lg hover:from-indigo-700 hover:to-purple-700 transition duration-300 transform hover:scale-[1.02] shadow-md cursor-pointer"
                 onClick={handleSearch}
               >
                 Find Available Vehicles
@@ -126,7 +126,7 @@ const HomePage = () => {
             </p>
             <button
               onClick={handleNavigate}
-              className="inline-flex items-center px-8 py-4 bg-white text-indigo-700 font-semibold rounded-lg hover:bg-gray-50 transition-colors duration-300 shadow-lg transform hover:scale-105"
+              className="inline-flex items-center px-8 py-4 bg-white text-indigo-700 font-semibold rounded-lg hover:bg-gray-50 transition-colors duration-300 shadow-lg transform hover:scale-105 cursor-pointer"
             >
               Book Your Vehicle Now
               <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 ml-2" viewBox="0 0 20 20" fill="currentColor">

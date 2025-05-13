@@ -1,9 +1,17 @@
 import React, { useContext } from "react";
 import { MdFavorite } from "react-icons/md";
 import { CarContext } from "../store/carStore";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
+import toast from "react-hot-toast";
 
 const Card = ({ vehicles }) => {
+  const location = useLocation()
+  const query = new URLSearchParams(location.search)
+  let coupen;
+  if(query.size > 0) {
+    coupen = query.get("coupen")
+    // console.log(coupen)
+  }
   const {
     userType,
     addFavouriteCar,
@@ -17,8 +25,8 @@ const Card = ({ vehicles }) => {
     setFavourite,
   } = useContext(CarContext);
   const navigate = useNavigate();
-  console.log(cars);
-  console.log(favCars);
+  // console.log(cars);
+  // console.log(favCars);
 
   // const handleClick = (id) => {
   //   if (favourite === false) {
@@ -29,19 +37,25 @@ const Card = ({ vehicles }) => {
   //   setFavourite(!favourite);
   // };
 
-  const addFav = (id) => {
-    addFavouriteCar(id);
+  const addFav = async (id) => {
+    const data = await addFavouriteCar(id);
+    if (data) {
+      toast.success("Vehicle added to favourites successfully");
+    } else {
+      toast.error("Error adding the vehicle");
+    }
   };
 
   const deleteFav = (id) => {
     deleteFavouriteCars(id);
+    toast.error("Vehicle deleted");
   };
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
       {vehicles.map((vehicle) => {
         const isFavourite = favCars.find((car) => car._id === vehicle._id);
-        console.log(isFavourite);
+        // console.log(isFavourite);
         // {
         //   isFavourite ? setFavourite(true) : setFavourite(false);
         // }
@@ -56,8 +70,8 @@ const Card = ({ vehicles }) => {
             {/* Vehicle Image */}
             <div className="relative h-56 overflow-hidden">
               <img
-                src={`http://localhost:3000/${vehicle.image[0]}`}
-                alt={`${vehicle.make} ${vehicle.model}`}
+                src={`http://localhost:3000/${vehicle?.image[0]}`}
+                alt={`${vehicle?.make} ${vehicle?.model}`}
                 className="w-full h-full object-cover transform hover:scale-105 transition-transform duration-500"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent"></div>
@@ -75,7 +89,7 @@ const Card = ({ vehicles }) => {
                         ? () => deleteFav(vehicle._id)
                         : () => addFav(vehicle._id)
                     }
-                    className={`rounded-full p-2 transform hover:scale-110 transition-all duration-300`}
+                    className={`rounded-full p-2 transform hover:scale-110 transition-all duration-300 cursor-pointer`}
                   >
                     {userType === "user" ? (
                       <MdFavorite
@@ -179,14 +193,14 @@ const Card = ({ vehicles }) => {
                 {/* Host Information */}
                 <div className="flex items-center gap-2 mt-3 p-2 bg-gray-50 rounded-lg">
                   <img
-                    src={`http://localhost:3000/${vehicle.host.image}`}
-                    alt={vehicle.host.fullName}
+                    src={`http://localhost:3000/${vehicle?.host?.image}`}
+                    alt={vehicle.host?.fullName}
                     className="w-8 h-8 rounded-full object-cover border border-gray-200"
                   />
                   <span className="text-sm font-medium text-gray-700">
                     {vehicle.host?._id === user?._id
                       ? "You"
-                      : `${vehicle.host.fullName}`}
+                      : `${vehicle.host?.fullName}`}
                   </span>
                 </div>
               </div>
@@ -206,7 +220,8 @@ const Card = ({ vehicles }) => {
                 <Link
                   to={
                     userType === "user"
-                      ? `/user/payment/${vehicle._id}`
+                      // ? `/user/payment/${vehicle._id}`
+                      ? `${query.size > 0 ? `/user/payment/${vehicle._id}?coupen=${coupen}` : `/user/payment/${vehicle._id}`}`
                       : "/user/signup"
                   }
                   className="flex-1"
@@ -216,7 +231,7 @@ const Card = ({ vehicles }) => {
                       className={`w-full py-2.5 px-4 rounded-lg font-medium ${
                         vehicle.status === "unavailable"
                           ? "bg-gray-300 text-gray-500 cursor-not-allowed"
-                          : "bg-blue-600 text-white hover:bg-blue-700"
+                          : "bg-blue-600 text-white hover:bg-blue-700 cursor-pointer"
                       } transition-colors`}
                       disabled={vehicle.status === "unavailable"}
                     >

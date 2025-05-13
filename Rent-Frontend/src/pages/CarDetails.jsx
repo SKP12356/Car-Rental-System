@@ -2,10 +2,11 @@ import React, { useContext, useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { CarContext } from "../store/carStore";
 import { Link } from "react-router-dom";
+import toast from "react-hot-toast";
 import Loader from "../components/Loader";
 
 const CarDetails = () => {
-  const { cars, addFavouriteCar, addBookedCars, userType, user, carDetails } =
+  const { cars, addFavouriteCar, addBookedCars, userType, user, carDetails, favCars } =
     useContext(CarContext);
   const [detailsCar, setDetailsCar] = useState();
   const navigate = useNavigate();
@@ -29,7 +30,13 @@ const CarDetails = () => {
 
   const handleClick = (id) => {
     if (userType === "user") {
-      addFavouriteCar(id);
+      const isFav = favCars.find((car) => car._id === id)
+      if(isFav) {
+        toast.error('Already in favourites')
+      }else{
+        addFavouriteCar(id);
+        toast.success("Vehicle added to favourites successfully");
+      }
     } else {
       navigate("/user/signup");
     }
@@ -166,7 +173,7 @@ const CarDetails = () => {
                   detailsCar?.status === "unavailable"
                     ? "bg-gray-400 cursor-not-allowed"
                     : "bg-blue-600 hover:bg-blue-700"
-                } text-white py-3 px-8 rounded-lg font-medium focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 transition flex items-center justify-center`}
+                } text-white py-3 px-8 rounded-lg font-medium focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 transition flex items-center justify-center cursor-pointer`}
                 disabled={detailsCar?.status === "unavailable"}
               >
                 <svg
@@ -187,7 +194,7 @@ const CarDetails = () => {
               </button>
             </Link>
             <button
-              className="w-full sm:w-auto bg-white border border-gray-300 py-3 px-6 rounded-lg font-medium hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-gray-300 transition flex items-center justify-center"
+              className="w-full sm:w-auto bg-white border border-gray-300 py-3 px-6 rounded-lg font-medium hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-gray-300 transition flex items-center justify-center cursor-pointer"
               onClick={() => handleClick(detailsCar?._id)}
             >
               <svg

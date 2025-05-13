@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 const Uploadings = () => {
   const { documents } = useContext(CarContext);
   const navigate = useNavigate()
-  console.log(documents);
+  // console.log(documents);
 
   const Documents = {
     frLicense: `http://localhost:3000/${documents[0]?.frLicense}`,

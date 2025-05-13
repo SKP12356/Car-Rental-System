@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 const PaymentsHistory = () => {
   const { history } = useContext(CarContext);
-  console.log(history);
+  // console.log(history);
   // const bookedCars = [
   //   { vehicle: { name: "Toyota Fortuner" }, amount: 5000 },
   //   { vehicle: { name: "Hyundai Creta" }, amount: 3500 },
